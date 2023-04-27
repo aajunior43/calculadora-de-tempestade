@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Calculadora de Distância de Tempestade</title>
+	<title>Calculadora de Distância de Tempestades</title>
 	<style>
 		body {
 			background-color: #000000;
@@ -80,10 +80,10 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Calculadora de Distância de Tempestade</h1>
+		<h1>Calculadora de Distância de Tempestades</h1>
 		<input type="number" id="intervalo" placeholder="Intervalo em segundos" />
 		<button onclick="calcularDistancia()">Calcular</button>
-		<p class="resultado" id="resultado"></p>
+		<p class="resultado" id="resultado" aria-live="polite"></p>
 
 		<p class="explanation">A distância da tempestade é calculada multiplicando o intervalo em segundos por 0.343, que é a velocidade do som em metros por segundo. Essa é uma estimativa aproximada da distância em quilômetros, ou em metros quando for menor do que um quilômetro.</p>
 
@@ -92,16 +92,18 @@
 
 	<script>
 		function calcularDistancia() {
-			var intervaloSegundos = document.getElementById("intervalo").value;
-			var distanciaKm = intervaloSegundos * 0.343; // Fórmula científica para calcular a distância em km
+			const intervaloSegundos = document.getElementById("intervalo").value;
+			const distanciaKm = intervaloSegundos * 0.343; // Fórmula científica para calcular a distância em km
+      let resultado;
 
 			if (distanciaKm < 1) {
-				var distanciaMetros = distanciaKm * 1000;
-				document.getElementById("resultado").innerHTML = "A distância da tempestade é de aproximadamente " + distanciaMetros.toFixed(2) + " metros.";
+				const distanciaMetros = distanciaKm * 1000;
+				resultado = `A distância da tempestade é de aproximadamente ${distanciaMetros.toFixed(2)} metros.`;
 			} else {
-				document.getElementById("resultado").innerHTML = "A distânciada tempestade é de aproximadamente " + distanciaKm.toFixed(2) + " quilômetros.";
-}
-}
+				resultado = `A distânciada tempestade é de aproximadamente ${distanciaKm.toFixed(2)} quilômetros.`;
+			}
+      document.getElementById('resultado').innerText = resultado;
+		}
 </script>
 
 </body>
