@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title>Calculadora de Distância de Tempestades</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
 		body {
 			background-color: #000000;
@@ -47,6 +49,7 @@
 			font-weight: bold;
 			cursor: pointer;
 			margin-right: 10px;
+			transition: background-color 0.3s ease;
 		}
 
 		button:hover {
@@ -75,17 +78,21 @@
 			font-size: 24px;
 			font-weight: bold;
 			margin-top: 30px;
+			transition: opacity 0.3s ease;
 		}
 	</style>
 </head>
 <body>
 	<div class="container">
 		<h1>Calculadora de Distância de Tempestades</h1>
-		<input type="number" id="intervalo" placeholder="Intervalo em segundos" />
+		<input type="number" id="intervalo" placeholder="Intervalo em segundos" onchange="limparResultado()" />
 		<button onclick="calcularDistancia()">Calcular</button>
 		<p class="resultado" id="resultado" aria-live="polite"></p>
 
-		<p class="explanation">A distância da tempestade é calculada multiplicando o intervalo em segundos por 0.343, que é a velocidade do som em metros por segundo. Essa é uma estimativa aproximada da distância em quilômetros, ou em metros quando for menor do que um quilômetro.</p>
+		<p class="explanation">A distância da tempestade é calculada multiplicando o intervalo em segundos por 0.343, queDesculpe pela interrupção anterior. Aqui está a continuação do código:
+
+```html
+		é a velocidade do som em metros por segundo. Essa é uma estimativa aproximada da distância em quilômetros, ou em metros quando for menor do que um quilômetro.</p>
 
 		<p class="credit">Criado por Aleksandro Alves Da Rocha Junior</p>
 	</div>
@@ -93,18 +100,26 @@
 	<script>
 		function calcularDistancia() {
 			const intervaloSegundos = document.getElementById("intervalo").value;
+			if (intervaloSegundos.trim() === '') {
+				alert('Por favor, digite um intervalo de tempo antes de tentar calcular.');
+				return;
+			}
 			const distanciaKm = intervaloSegundos * 0.343; // Fórmula científica para calcular a distância em km
-      let resultado;
+			let resultado;
 
 			if (distanciaKm < 1) {
 				const distanciaMetros = distanciaKm * 1000;
 				resultado = `A distância da tempestade é de aproximadamente ${distanciaMetros.toFixed(2)} metros.`;
 			} else {
-				resultado = `A distânciada tempestade é de aproximadamente ${distanciaKm.toFixed(2)} quilômetros.`;
+				resultado = `A distância da tempestade é de aproximadamente ${distanciaKm.toFixed(2)} quilômetros.`;
 			}
-      document.getElementById('resultado').innerText = resultado;
+			document.getElementById('resultado').innerText = resultado;
 		}
-</script>
+
+		function limparResultado() {
+			document.getElementById('resultado').innerText = '';
+		}
+	</script>
 
 </body>
 </html>
