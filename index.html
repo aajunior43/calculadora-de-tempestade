@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Calculadora de Distância de Tempestades</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<style>
-		body {
+ <head>
+  <title>
+   Calculadora de Distância de Tempestades
+  </title>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <style>
+   body {
 			background-color: #000000;
 			color: #f72585;
 			font-family: Arial, sans-serif;
@@ -80,25 +82,35 @@
 			margin-top: 30px;
 			transition: opacity 0.3s ease;
 		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		<h1>Calculadora de Distância de Tempestades</h1>
-		<input type="number" id="intervalo" placeholder="Intervalo em segundos" onchange="limparResultado()" />
-		<button onclick="calcularDistancia()">Calcular</button>
-		<p class="resultado" id="resultado" aria-live="polite"></p>
-
-		<p class="explanation">A distância da tempestade é calculada multiplicando o intervalo em segundos por 0.343, queDesculpe pela interrupção anterior. Aqui está a continuação do código:
+	
+        input:focus, button:focus {
+            outline: 2px solid #f72585;
+        }
+  </style>
+ </head>
+ <body>
+  <main class="container">
+   <h1>
+    Calculadora de Distância de Tempestades
+   </h1>
+   <input id="intervalo" onchange="limparResultado()" placeholder="Intervalo em segundos" type="number"/>
+   <button onclick="calcularDistancia()">
+    Calcular
+   </button>
+   <p aria-live="polite" class="resultado" id="resultado">
+   </p>
+   <p class="explanation">
+    A distância da tempestade é calculada multiplicando o intervalo em segundos por 0.343, queDesculpe pela interrupção anterior. Aqui está a continuação do código:
 
 ```html
-		é a velocidade do som em metros por segundo. Essa é uma estimativa aproximada da distância em quilômetros, ou em metros quando for menor do que um quilômetro.</p>
-
-		<p class="credit">Criado por Aleksandro Alves Da Rocha Junior</p>
-	</div>
-
-	<script>
-		function calcularDistancia() {
+		é a velocidade do som em metros por segundo. Essa é uma estimativa aproximada da distância em quilômetros, ou em metros quando for menor do que um quilômetro.
+   </p>
+   <p class="credit">
+    Criado por Aleksandro Alves Da Rocha Junior
+   </p>
+  </main>
+  <script>
+   function calcularDistancia() {
 			const intervaloSegundos = document.getElementById("intervalo").value;
 			if (intervaloSegundos.trim() === '') {
 				alert('Por favor, digite um intervalo de tempo antes de tentar calcular.');
@@ -119,7 +131,6 @@
 		function limparResultado() {
 			document.getElementById('resultado').innerText = '';
 		}
-	</script>
-
-</body>
+  </script>
+ </body>
 </html>
