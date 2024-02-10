@@ -1,136 +1,125 @@
 <!DOCTYPE html>
-<html>
- <head>
-  <title>
-   Calculadora de Distância de Tempestades
-  </title>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <style>
-   body {
-			background-color: #000000;
-			color: #f72585;
-			font-family: Arial, sans-serif;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-		}
-
-		.container {
-			background-color: #1e2939;
-			padding: 30px;
-			border-radius: 10px;
-			width: 400px;
-			text-align: center;
-		}
-
-		h1 {
-			color: #f72585;
-			font-size: 32px;
-			font-weight: bold;
-			margin-bottom: 30px;
-		}
-
-		input {
-			padding: 10px;
-			border: none;
-			background-color: #f0f0f0;
-			border-radius: 5px;
-			width: 100%;
-			margin-bottom: 20px;
-		}
-
-		button {
-			background-color: #000000;
-			color: #f72585;
-			padding: 10px 20px;
-			border: 4px solid #f72585;
-			border-radius: 5px;
-			font-size: 16px;
-			font-weight: bold;
-			cursor: pointer;
-			margin-right: 10px;
-			transition: background-color 0.3s ease;
-		}
-
-		button:hover {
-			background-color: #00f5d4;
-		}
-
-		p {
-			margin-top: 10px;
-			margin-bottom: 10px;
-		}
-
-		.explanation {
-			color: #f72585;
-			font-size: 14px;
-			margin-top: 30px;
-		}
-
-		.credit {
-			text-align: center;
-			font-size: 12px;
-			margin-top: 30px;
-		}
-
-		.resultado {
-			color: #00f5d4;
-			font-size: 24px;
-			font-weight: bold;
-			margin-top: 30px;
-			transition: opacity 0.3s ease;
-		}
-	
-        input:focus, button:focus {
-            outline: 2px solid #f72585;
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Distância de Tempestades</title>
+    <style>
+        :root {
+            --primary-color: #4ecca3;
+            --background-color: #1e2022;
+            --text-color: #f5f5f5;
+            --container-bg-color: #252a34;
+            --btn-hover-color: #227093;
+            --result-bg-color: #0a3d62;
         }
-  </style>
- </head>
- <body>
-  <main class="container">
-   <h1>
-    Calculadora de Distância de Tempestades
-   </h1>
-   <input id="intervalo" onchange="limparResultado()" placeholder="Intervalo em segundos" type="number"/>
-   <button onclick="calcularDistancia()">
-    Calcular
-   </button>
-   <p aria-live="polite" class="resultado" id="resultado">
-   </p>
-   <p class="explanation">
-    A distância da tempestade é calculada multiplicando o intervalo em segundos por 0.343, queDesculpe pela interrupção anterior. Aqui está a continuação do código:
+        body {
+            background: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+        }
+        .container {
+            background-color: var(--container-bg-color);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+        input, button {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid transparent;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        input {
+            background-color: #fff;
+            color: #333;
+        }
+        input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background-color: var(--btn-hover-color);
+        }
+        .resultado {
+            display: none; /* Hide by default */
+            background-color: var(--result-bg-color);
+            color: var(--text-color);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: display 0.3s ease;
+        }
+        .explanation, .credit {
+            font-size: 0.85em;
+            opacity: 0.9;
+            margin-top: 15px;
+        }
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.75em;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Calculadora de Distância de Tempestades</h1>
+    <input type="number" id="intervalo" placeholder="Intervalo em segundos" onchange="limparResultado()">
+    <button onclick="calcularDistancia()">Calcular</button>
+    <div class="resultado" id="resultado"></div>
+    <p class="explanation">A distância da tempestade é calculada multiplicando o intervalo em segundos pela velocidade do som em m/s (0.343), para obter uma estimativa aproximada em quilômetros.</p>
+    <p class="credit">Criado por Aleksandro Alves Da Rocha Junior</p>
+</div>
+<script>
+    function calcularDistancia() {
+        const intervaloSegundos = document.getElementById("intervalo").value.trim();
+        if (intervaloSegundos === '') {
+            alert('Por favor, insira um intervalo de tempo.');
+            return;
+        }
+        const distancia = intervaloSegundos * 0.343;
+        let resultado;
+        if (distancia < 1) {
+            resultado = `A distância da tempestade é de aproximadamente ${(distancia * 1000).toFixed(2)} metros.`;
+        } else {
+            resultado = `A distância da tempestade é de aproximadamente ${distancia.toFixed(2)} quilômetros.`;
+        }
+        const resultadoDiv = document.getElementById('resultado');
+        resultadoDiv.innerHTML = resultado;
+        resultadoDiv.style.display = 'block'; // Show the result
+    }
 
-```html
-		é a velocidade do som em metros por segundo. Essa é uma estimativa aproximada da distância em quilômetros, ou em metros quando for menor do que um quilômetro.
-   </p>
-   <p class="credit">
-    Criado por Aleksandro Alves Da Rocha Junior
-   </p>
-  </main>
-  <script>
-   function calcularDistancia() {
-			const intervaloSegundos = document.getElementById("intervalo").value;
-			if (intervaloSegundos.trim() === '') {
-				alert('Por favor, digite um intervalo de tempo antes de tentar calcular.');
-				return;
-			}
-			const distanciaKm = intervaloSegundos * 0.343; // Fórmula científica para calcular a distância em km
-			let resultado;
-
-			if (distanciaKm < 1) {
-				const distanciaMetros = distanciaKm * 1000;
-				resultado = `A distância da tempestade é de aproximadamente ${distanciaMetros.toFixed(2)} metros.`;
-			} else {
-				resultado = `A distância da tempestade é de aproximadamente ${distanciaKm.toFixed(2)} quilômetros.`;
-			}
-			document.getElementById('resultado').innerText = resultado;
-		}
-
-		function limparResultado() {
-			document.getElementById('resultado').innerText = '';
-		}
-  </script>
- </body>
+    function limparResultado() {
+        const resultadoDiv = document.getElementById('resultado');
+        resultadoDiv.innerHTML = '';
+        resultadoDiv.style.display = 'none'; // Hide the result again
+    }
+</script>
+</body>
 </html>
